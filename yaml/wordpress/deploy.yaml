@@ -1,0 +1,38 @@
+# This mounts the nfs volume claim into /mnt and continuously
+# overwrites /mnt/index.html with the time and hostname of the pod.
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: wp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      role: wp
+  template:
+    metadata:
+      labels:
+        role: wp
+    spec:
+      containers:
+      - image: davesav/wp:another
+        imagePullPolicy: IfNotPresent
+        name: wp
+        env:
+        - name: WORDPRESS_DB_HOST
+          value: mysql.default.svc.cluster.local
+        - name: WORDPRESS_DB_USER
+          value: username
+        - name: WORDPRESS_DB_PASSWORD
+          value: password
+        - name: WORDPRESS_DB_NAME
+          value: wordpress
+        volumeMounts:
+          # name must match the volume name below
+          - name: my-pvc-nfs
+            mountPath: "/var/www/html/"
+      volumes:
+      - name: my-pvc-nfs
+        persistentVolumeClaim:
+          claimName: wp

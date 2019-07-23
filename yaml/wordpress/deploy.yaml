@@ -16,7 +16,7 @@ spec:
         role: wp
     spec:
       containers:
-      - image: davesav/wp:another
+      - image: davesav/wp:workshop
         imagePullPolicy: IfNotPresent
         name: wp
         env:

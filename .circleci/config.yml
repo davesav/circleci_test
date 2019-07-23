@@ -9,7 +9,7 @@ jobs:
 
       - run:
           name: Greeting #1
-          command: echo '"######  Hello, world. ########"'
+          command: echo "######  Hello"
 
       - run:
           name: Print the Current Time

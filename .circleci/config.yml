@@ -3,14 +3,28 @@ jobs:
   build:
     docker:
       - image: debian:stretch
+        need to create custom image with all apps and capability like kubectl and 
 
     steps:
       - checkout
 
-      - run:
-          name: Greeting #1
-          command: echo "######  Hello"
+
+#i#`get the commit hash and use it as a tag.
+#git log --format="%H"  > TAG
+#circleci will already have in env GIT_SHA1
+#echo 'export GIT_SHA1='$CIRCLE_SHA1'' >> $BASH_ENV
 
       - run:
-          name: Print the Current Time
-          command: date
+          name: -Setup Env Variables
+          command: echo $D_PASS | docker login -u $D_USER --password-stdin
+
+      - run:
+          name: Login to Docker
+          command: docker login -u $D_USER --password-stdin
+
+#      - run:
+#          name: Build the mysql image
+#          command: docker build -t davesav/mysql:$GIT_SHA1 .
+
+
+#docker login -u $D_USER --password-stdin 

@@ -28,11 +28,11 @@ jobs:
           name: Push mysql to dockerhub
           command: docker push davesav/mysql:${CIRCLE_SHA1}
 
-     - run:
+      - run:
           name: Build the wp image
           command: docker build -t davesav/wp:${CIRCLE_SHA1} my-wp
 
       - run:
           name: Push wp to dockerhub
-          command: docker push davesav/my-wp:${CIRCLE_SHA1}
+          command: docker push davesav/wp:${CIRCLE_SHA1}
  

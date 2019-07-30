@@ -16,13 +16,15 @@ jobs:
 #echo 'export GIT_SHA1='$CIRCLE_SHA1'' >> $BASH_ENV
 
       - run:
-          name: -Setup Env Variables
+          name: Login to Docker
           command: echo $D_PASS | docker login -u $D_USER --password-stdin
 
       
-#      - run:
-#          name: Build the mysql image
-#          command: docker build -t davesav/mysql:$GIT_SHA1 .
+      - run:
+          name: Build the mysql image 
+          command: docker build -t davesav/mysql:${CIRCLE_SHA1} .
 
-
-#docker login -u $D_USER --password-stdin 
+      - run:
+          name: Push mysql to dockerhub
+          command: docker push davesav/mysql:${CIRCLE_SHA1}
+ 

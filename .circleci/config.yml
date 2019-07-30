@@ -3,7 +3,7 @@ jobs:
   build:
     docker:
       - image: debian:stretch
-        need to create custom image with all apps and capability like kubectl and 
+#        need to create custom image with all apps and capability like kubectl and 
 
     steps:
       - checkout

@@ -2,12 +2,13 @@ version: 2
 jobs:
   build:
     docker:
-      - image: debian:stretch
+      - image: google/cloud-sdk 
+# this google image will have gcloud and kubectl and docker
 #        need to create custom image with all apps and capability like kubectl and 
 
     steps:
       - checkout
-
+      - setup_remote_docker
 
 #i#`get the commit hash and use it as a tag.
 #git log --format="%H"  > TAG

@@ -3,22 +3,21 @@ jobs:
   build:
     docker:
       - image: google/cloud-sdk 
-# this google image will have gcloud and kubectl and docker
-#        need to create custom image with all apps and capability like kubectl and 
+# this google image will already have gcloud and kubectl and docker in docker
+#        otherwise need to create custom image with all apps and capability like kubectl and 
 
     steps:
       - checkout
       - setup_remote_docker
 
-#i#`get the commit hash and use it as a tag.
-#git log --format="%H"  > TAG
-#circleci will already have in env GIT_SHA1
-#echo 'export GIT_SHA1='$CIRCLE_SHA1'' >> $BASH_ENV
-
       - run:
           name: Login to Docker
           command: echo $D_PASS | docker login -u $D_USER --password-stdin
 
+#i#`get the commit hash and use it as a tag.
+#git log --format="%H"  > TAG
+#circleci will already have in env GIT_SHA1
+#echo 'export GIT_SHA1='$CIRCLE_SHA1'' >> $BASH_ENV
       
       - run:
           name: Build the mysql image 

@@ -14,7 +14,7 @@ spec:
         role: mysql
     spec:
       containers:
-      - image: davesav/mysql:5.6
+      - image: davesav/mysql:2f7a7bf51eac91ad3460beb1ed4cd96621b3c01d
         name: mysql
         env:
         - name: MYSQL_ROOT_PASSWORD

@@ -51,6 +51,7 @@ jobs:
             gcloud --quiet container clusters get-credentials ${GKE_CLUSTER_NAME}
             sleep 5
 
+
 # Push the new images to cluster
 
       - run:

@@ -46,7 +46,7 @@ jobs:
             echo "${GKE_SERVICE_ACCOUNT}" | base64 --decode --ignore > /tmp/gke_key.json
             gcloud auth activate-service-account --key-file /tmp/gke_key.json
             gcloud config set project ${GKE_PROJECT_ID}
-            gcloud config set compute/name ${GKE_COMPUTE_ZONE}
+            gcloud config set compute/zone ${GKE_COMPUTE_ZONE}
             gcloud --quiet container clusters get-credentials ${GKE_CLUSTER_ZONE}
 
 # Get creds for cluster and push new images

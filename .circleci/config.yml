@@ -45,11 +45,12 @@ jobs:
             echo ">>${GKE_SERVICE_ACCOUNT}<<"
             echo "${GKE_SERVICE_ACCOUNT}" | base64 --decode --ignore > /tmp/gke_key.json
             gcloud auth activate-service-account --key-file /tmp/gke_key.json
+            sleep 5
             gcloud config set project ${GKE_PROJECT_ID}
             gcloud config set compute/zone ${GKE_COMPUTE_ZONE}
             gcloud --quiet container clusters get-credentials ${GKE_CLUSTER_NAME}
 
-# Get creds for cluster and push new images
+# Push the new images to cluster
 
       - run:
           name: Notify k8s to use the new wp and mysql images

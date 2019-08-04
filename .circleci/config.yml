@@ -42,13 +42,17 @@ jobs:
           name: Grant k8s permissions into cluster
           command: |
             cd $HOME
-            echo ">>${GKE_SERVICE_ACCOUNT}<<"
+            echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+            echo "${GKE_SERVICE_ACCOUNT}" | base64 --decode --ignore
             echo "${GKE_SERVICE_ACCOUNT}" | base64 --decode --ignore > /tmp/gke_key.json
+            echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
             gcloud auth activate-service-account --key-file /tmp/gke_key.json
             sleep 5
+            echo "Project: ${GKE_PROJECT_ID}"
             gcloud config set project ${GKE_PROJECT_ID}
+            echo "Compute Zone: ${GKE_COMPUTE_ZONE}"
             gcloud config set compute/zone ${GKE_COMPUTE_ZONE}
-            gcloud --quiet container clusters get-credentials ${GKE_CLUSTER_NAME}
+            gcloud container clusters get-credentials ${GKE_CLUSTER_NAME}
             sleep 5
 
 

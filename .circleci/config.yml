@@ -61,7 +61,7 @@ jobs:
       - run:
           name: Notify k8s to use the new wp and mysql images
           command: |
-            echo ${CIRCLE_SHA1}
+            echo "Hash / image tag: ${CIRCLE_SHA1}"
             kubectl set image deployment/wp wp=davesav/wp:${CIRCLE_SHA1}
             kubectl annotate deployment.v1.apps/wp kubernetes.io/change-cause=${CIRCLE_SHA1}
             kubectl set image deployment/mysql mysql=davesav/mysql:${CIRCLE_SHA1}

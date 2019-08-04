@@ -21,7 +21,7 @@ jobs:
 
       - run:
           name: Build the mysql image
-          command: docker build -t davesav/mysql:${CIRCLE_SHA1} my-mysql 
+          command: docker build -t davesav/mysql:${CIRCLE_SHA1} my-mysql
 
       - run:
           name: Push mysql to dockerhub
@@ -34,3 +34,29 @@ jobs:
       - run:
           name: Push wp to dockerhub
           command: docker push davesav/wp:${CIRCLE_SHA1}
+
+#
+# Get creds for cluster and push new images
+
+      - run:
+          name: Grant k8s permissions into cluster
+          command: |
+            cd $HOME
+            echo "$(GKE_SERVICE_ACCOUNT)" | base64 --decode >> /tmp/gke_key.json
+            gcloud auth activate-service-account --key-file /tmp/gke_key.json
+            gcloud config set project ${GKE_PROJECT_ID}
+            gcloud config set compute/name ${GKE_COMPUTE_ZONE}
+            gcloud --quiet container clusters get-credentials ${GKE_CLUSTER_ZONE}
+
+# Get creds for cluster and push new images
+
+      - run:
+          name: Notify k8s to use the new wp and mysql images
+          command: |
+            echo ${CIRCLE_SHA1}
+            kubectl get deployment
+            kubectl set image deployment/wp wp=davesav/wp:${CIRCLE_SHA1}
+            kubectl annotate deployment.v1.apps/wp kubernetes.io/change-cause=${CIRCLE_SHA1}
+            kubectl set image deployment/mysql mysql=davesav/mysql:${CIRCLE_SHA1}
+            kubectl annotate deployment.v1.apps/mysql kubernetes.io/change-cause=${CIRCLE_SHA1}
+            kubectl get deployment

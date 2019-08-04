@@ -2,9 +2,9 @@ version: 2
 jobs:
   build:
     docker:
-      - image: google/cloud-sdk 
+      - image: google/cloud-sdk
 # this google image will already have gcloud and kubectl and docker in docker
-#        otherwise need to create custom image with all apps and capability like kubectl and 
+#        otherwise need to create custom image with all apps and capability like kubectl and
 
     steps:
       - checkout
@@ -18,9 +18,9 @@ jobs:
 #git log --format="%H"  > TAG
 #circleci will already have in env GIT_SHA1
 #echo 'export GIT_SHA1='$CIRCLE_SHA1'' >> $BASH_ENV
-      
+
       - run:
-          name: Build the mysql image 
+          name: Build the mysql image
           command: docker build -t davesav/mysql:${CIRCLE_SHA1} my-mysql 
 
       - run:
@@ -34,4 +34,3 @@ jobs:
       - run:
           name: Push wp to dockerhub
           command: docker push davesav/wp:${CIRCLE_SHA1}
- 

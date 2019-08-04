@@ -38,5 +38,5 @@ spec:
       volumes:
         - name: mypvc
           gcePersistentDisk:
-            pdName: nfsdisk
+            pdName: nfs-disk
             fsType: ext4

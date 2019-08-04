@@ -16,7 +16,7 @@ spec:
         role: wp
     spec:
       containers:
-      - image: davesav/wp:2f7a7bf51eac91ad3460beb1ed4cd96621b3c01d
+      - image: davesav/wp:6b91657c76d2f1021a561209cb060aaee07a04a9
         imagePullPolicy: IfNotPresent
         name: wp
         env:

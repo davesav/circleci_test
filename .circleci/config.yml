@@ -53,25 +53,25 @@ jobs:
             gcloud config set project ${GKE_PROJECT_ID}
             echo "Compute Zone: ${GKE_COMPUTE_ZONE}"
             gcloud config set compute/zone ${GKE_COMPUTE_ZONE}
-            
+
             echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
             echo "${GKE_SERVICE_ACCOUNT}" | base64 --decode --ignore
             echo "${GKE_SERVICE_ACCOUNT}" | base64 --decode --ignore > /tmp/gke_key.json
             echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
             gcloud auth activate-service-account --key-file /tmp/gke_key.json
-            sleep 5
 
             gcloud container clusters get-credentials ${GKE_CLUSTER_NAME}
-            sleep 5
 
 
 # Push the new images to cluster
 
       - run:
-          name: Notify k8s to use the new wp and mysql images
+          name: Notify k8s to use the new wp and mysql images 
           command: |
             echo "Hash / image tag: ${CIRCLE_SHA1}"
+            kubectl get deploy
             kubectl set image deployment/wp wp=davesav/wp:${CIRCLE_SHA1}
             kubectl annotate deployment.v1.apps/wp kubernetes.io/change-cause=${CIRCLE_SHA1}
             kubectl set image deployment/mysql mysql=davesav/mysql:${CIRCLE_SHA1}
             kubectl annotate deployment.v1.apps/mysql kubernetes.io/change-cause=${CIRCLE_SHA1}
+            kubectl get deploy

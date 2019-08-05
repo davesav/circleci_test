@@ -66,7 +66,7 @@ jobs:
 # Push the new images to cluster
 
       - run:
-          name: Notify k8s to use the new wp and mysql images 
+          name: Notify k8s to use the new wp and mysql images
           command: |
             echo "Hash / image tag: ${CIRCLE_SHA1}"
             kubectl get deploy

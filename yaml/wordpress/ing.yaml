@@ -14,7 +14,7 @@ spec:
         - path: /
           backend:
             serviceName: wp
-            servicePort: 80
+            servicePort: 443
   tls:
     - hosts:
         - "wp.deszone.us"

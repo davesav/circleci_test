@@ -8,14 +8,14 @@ metadata:
     kubernetes.io/tls-acme: 'true'
 spec:
   rules:
-    - host: wp.deszone.us
+    - host: nilesh.deszone.us
       http:
         paths:
         - path: /
           backend:
             serviceName: wp
-            servicePort: 443
+            servicePort: 80
   tls:
     - hosts:
-        - "wp.deszone.us"
-      secretName: wp.deszone.us
+        - "nilesh.deszone.us"
+      secretName: nilesh.deszone.us
